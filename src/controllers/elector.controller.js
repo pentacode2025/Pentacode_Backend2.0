@@ -10,8 +10,8 @@ async function miInfo(req, res, next) {
   // Re-validamos en la BD usando findByDniFechaDv
   const elector = await electorModel.findByDniFechaDv({ dni: String(electorDni), dv: String(electorDv), fecha_emision: electorFecha });
   if (!elector) return res.status(404).json({ message: 'Elector no encontrado' });
-  // retornar info útil
-  res.json({ lugar_ubicacion: elector.lugar_ubicacion, es_miembro_de_mesa: elector.es_miembro_de_mesa, fecha_emision: elector.fecha_emision });
+  // retornar todo el objeto del elector (mapeado) para incluir nombre, direccion, ubicacion, etc.
+  res.json(elector);
   } catch (err) { next(err); }
 }
 

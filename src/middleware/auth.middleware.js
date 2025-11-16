@@ -14,7 +14,9 @@ function authMiddleware(req, res, next) {
   req.user = payload;
     next();
   } catch (err) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
+    // differentiate expired token vs invalid token so frontend can redirect appropriately
+    if (err && err.name === 'TokenExpiredError') return res.status(401).json({ message: 'Token expired' });
+    return res.status(401).json({ message: 'Invalid token' });
   }
 }
 

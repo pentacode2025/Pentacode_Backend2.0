@@ -10,7 +10,8 @@ async function miUbicacion(req, res, next) {
   // Re-validamos y obtenemos la ubicación usando el método findByDniFechaDv
   const elector = await require('../models/elector.model').findByDniFechaDv({ dni: String(electorDni), dv: String(electorDv), fecha_emision: electorFecha });
   if (!elector) return res.status(404).json({ message: 'No se encontró ubicación' });
-  res.json({ lugar_ubicacion: elector.lugar_ubicacion, es_miembro_de_mesa: elector.es_miembro_de_mesa, fecha_emision: elector.fecha_emision });
+  // return full elector object including location and coordinates
+  res.json(elector);
   } catch (err) { next(err); }
 }
 
