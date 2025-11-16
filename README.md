@@ -24,12 +24,13 @@ npm install
 npm run dev
 ```
 
-Notas importantes sobre verificación de electores y hashing
-- En la especificación los `dni` y el `digito verificador` estarán hasheados en la DB (columnas `dni` y `codigo_verificacion` en el esquema provisto).
-- Para verificar un elector, el backend compara el `dni` y el `dv` recibidos en texto plano contra los hashes almacenados usando `bcrypt.compare`.
--- Debido a la naturaleza de los hashes con salt, la implementación puede leer filas candidatas y comparar con `bcrypt.compare` hasta encontrar coincidencia. Esto funciona pero no escala bien para tablas grandes.
--- Mejora recomendada: habilitar la extensión `pgcrypto` en PostgreSQL y almacenar los hashes en un formato compatible con `crypt()` (bcrypt con crypt). Con `pgcrypto` la comparación puede hacerse en el servidor: `WHERE crypt($1, dni) = dni` y `WHERE crypt($2, codigo_verificacion) = codigo_verificacion`, evitando traer filas al servidor.
--- Aún mejor (indexable): almacenar además una huella determinística (por ejemplo HMAC con una clave secreta del servidor) para búsqueda por índice y usar bcrypt/crypt sólo para validación final.
+Notas importantes sobre verificación de electores
+- Según la última instrucción del proyecto, la verificación de electores se realiza por coincidencia exacta de los tres valores: `dni`, `fecha_emision` y `codigo_verificacion` (tal como están en el esquema `elecciones.electores`).
+- Endpoint: `POST /api/v1/auth/verificar-elector` espera `{ dni, dv, fecha_emision }` y devuelve un token si los tres campos coinciden exactamente con un registro en la base de datos.
+- Seguridad: esta estrategia funciona para consultas directas pero NO es recomendada para producción si los datos personales se almacenan en texto plano. Para mayor seguridad y rendimiento en producción considerar:
+  - Almacenar hashes y usar `bcrypt`/`pgcrypto` para validación.
+  - Añadir una huella determinística indexable (HMAC) para búsquedas eficientes, y usar bcrypt/crypt sólo para validación final.
+ - Nota sobre el token: el JWT devuelto contiene los campos `{ electorDni, electorDv, electorFecha }` y expira en 5 minutos. Los endpoints protegidos reutilizan estos valores para re-validar al elector utilizando `findByDniFechaDv`.
 
 Estructura de carpetas
 
@@ -92,7 +93,7 @@ CREATE TABLE cronograma (
 ```
 
 Uso rápido
-- POST /api/v1/auth/verificar-elector  -> { dni, dv }
+-- POST /api/v1/auth/verificar-elector  -> { dni, dv, fecha_emision }
 - Guardar token devuelto y usar en headers: Authorization: Bearer <token>
 
 Limitaciones demo

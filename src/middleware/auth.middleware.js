@@ -10,7 +10,7 @@ function authMiddleware(req, res, next) {
   const token = parts[1];
   try {
   const payload = verifyToken(token);
-  // payload should include electorDniHash (we store the hashed dni as identifier in the token)
+  // payload should include electorDni, electorDv and electorFecha (these are added at verification)
   req.user = payload;
     next();
   } catch (err) {
