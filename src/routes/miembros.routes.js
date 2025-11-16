@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const controller = require('../controllers/miembro.controller');
+import controller from '../controllers/miembro.controller.js';
 
 router.get('/:dni', controller.verificarMiembro);
 
-module.exports = router;
+export default router;

@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import controller from '../controllers/postulante.controller.js';
+
 const router = express.Router();
-const controller = require('../controllers/postulante.controller');
 
 router.get('/', controller.listPostulantes);
 router.get('/:id', controller.detallePostulante);
 
-module.exports = router;
+export default router;

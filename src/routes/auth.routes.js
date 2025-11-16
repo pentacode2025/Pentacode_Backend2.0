@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import controller from '../controllers/auth.controller.js';
+
 const router = express.Router();
-const controller = require('../controllers/auth.controller');
 
 router.post('/verificar-elector', controller.verificarElector);
 
-module.exports = router;
+export default router;

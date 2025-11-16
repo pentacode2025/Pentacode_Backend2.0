@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 /**
  * localhost:4000/api/v1/votacion/consulta
  */
@@ -67,6 +67,6 @@ async function findByDniFechaDv({ dni, dv, fecha_emision }) {
   }
 }
 
-module.exports = {
+export default {
   findByDniFechaDv,
 };

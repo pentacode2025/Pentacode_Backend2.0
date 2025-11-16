@@ -1,4 +1,4 @@
-const db = require('../config/database');
+import db from '../config/database.js';
 
 async function getAllPartidos() {
   const q = 'SELECT id, nombre, plan, created_at FROM partidos ORDER BY id';
@@ -43,7 +43,7 @@ async function comparePartidosByIds(ids) {
   return rows;
 }
 
-module.exports = {
+export default {
   getAllPartidos,
   getPartidoById,
   getPlanByPartidoId,

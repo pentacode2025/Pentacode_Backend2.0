@@ -1,4 +1,4 @@
-function errorHandler(err, req, res, next) {
+export function errorHandler(err, req, res, next) {
   // Handle JSON parse errors (body-parser)
   if (err && (err.type === 'entity.parse.failed' || (err instanceof SyntaxError && err.status === 400))) {
     // err.body often contains the raw body that failed to parse
@@ -20,5 +20,3 @@ function errorHandler(err, req, res, next) {
   const message = err.message || 'Internal Server Error';
   res.status(status).json({ error: true, message });
 }
-
-module.exports = { errorHandler };

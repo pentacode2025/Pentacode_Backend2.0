@@ -1,5 +1,5 @@
-const db = require('../config/database');
-const bcrypt = require('bcryptjs');
+import db from '../config/database.js';
+import bcrypt from 'bcryptjs';
 
 async function isMiembroByDni(dni) {
   // members table stores hashed_dni
@@ -16,4 +16,4 @@ async function isMiembroByDni(dni) {
   return null;
 }
 
-module.exports = { isMiembroByDni };
+export default { isMiembroByDni };

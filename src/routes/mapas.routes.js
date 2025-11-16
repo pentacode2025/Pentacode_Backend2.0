@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import auth from '../middleware/auth.middleware.js';
+import controller from '../controllers/mapa.controller.js';
+
 const router = express.Router();
-const auth = require('../middleware/auth.middleware');
-const controller = require('../controllers/mapa.controller');
 
 router.get('/mi-ubicacion', auth, controller.miUbicacion);
 
-module.exports = router;
+export default router;

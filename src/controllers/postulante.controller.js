@@ -1,4 +1,4 @@
-const postulanteModel = require('../models/postulante.model');
+import postulanteModel from '../models/postulante.model.js';
 
 async function listPostulantes(req, res, next) {
   try {
@@ -16,4 +16,4 @@ async function detallePostulante(req, res, next) {
   } catch (err) { next(err); }
 }
 
-module.exports = { listPostulantes, detallePostulante };
+export default { listPostulantes, detallePostulante };

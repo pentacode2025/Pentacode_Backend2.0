@@ -1,4 +1,4 @@
-const miembroModel = require('../models/miembro.model');
+import miembroModel from '../models/miembro.model.js';
 
 async function verificarMiembro(req, res, next) {
   try {
@@ -10,4 +10,4 @@ async function verificarMiembro(req, res, next) {
   } catch (err) { next(err); }
 }
 
-module.exports = { verificarMiembro };
+export default { verificarMiembro };

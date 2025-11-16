@@ -1,4 +1,4 @@
-const db = require('../config/database');
+import db from '../config/database.js';
 
 async function getAllPostulantes() {
   const q = 'SELECT p.id, p.nombre, p.cargo, pa.nombre as partido FROM postulantes p LEFT JOIN partidos pa ON p.partido_id = pa.id ORDER BY p.id';
@@ -12,7 +12,7 @@ async function getPostulanteById(id) {
   return rows[0];
 }
 
-module.exports = {
+export default {
   getAllPostulantes,
   getPostulanteById
 };

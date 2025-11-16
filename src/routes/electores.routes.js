@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import auth from '../middleware/auth.middleware.js';
+import controller from '../controllers/elector.controller.js';
+
 const router = express.Router();
-const auth = require('../middleware/auth.middleware');
-const controller = require('../controllers/elector.controller');
 
 router.get('/mi-info', auth, controller.miInfo);
 
-module.exports = router;
+export default router;

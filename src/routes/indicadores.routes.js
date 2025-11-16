@@ -1,7 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const controller = require('../controllers/indicador.controller');
+// src/routes/indicadores.routes.js
+import { Router } from "express";
+import {
+  getIndicadores,
+  getIndicadorPorPartido,
+} from "../controllers/indicador.controller.js";
 
-router.get('/partido/:id', controller.indicadoresPartido);
+const router = Router();
 
-module.exports = router;
+// GET /api/indicadores
+router.get("/", getIndicadores);
+
+// GET /api/indicadores/partido/:partidoPolitico
+router.get("/partido/:partidoPolitico", getIndicadorPorPartido);
+
+export default router;

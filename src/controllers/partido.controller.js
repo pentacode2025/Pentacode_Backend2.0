@@ -1,4 +1,4 @@
-const partidoModel = require('../models/partido.model');
+import partidoModel from '../models/partido.model.js';
 
 async function listPartidos(req, res, next) {
   try {
@@ -51,7 +51,7 @@ async function compararPartidos(req, res, next) {
   } catch (err) { next(err); }
 }
 
-module.exports = {
+export default {
   listPartidos,
   detallePartido,
   planPartido,

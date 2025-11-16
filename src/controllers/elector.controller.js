@@ -1,4 +1,4 @@
-const electorModel = require('../models/elector.model');
+import electorModel from '../models/elector.model.js';
 
 async function miInfo(req, res, next) {
   try {
@@ -15,4 +15,4 @@ async function miInfo(req, res, next) {
   } catch (err) { next(err); }
 }
 
-module.exports = { miInfo };
+export default { miInfo };

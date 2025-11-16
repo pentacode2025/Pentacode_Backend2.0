@@ -1,5 +1,5 @@
-const electorModel = require('../models/elector.model');
-const { signToken } = require('../utils/jwt');
+import electorModel from '../models/elector.model.js';
+import { signToken } from '../utils/jwt.js';
 
 async function verificarElector(req, res, next) {
   try {
@@ -41,4 +41,4 @@ async function verificarElector(req, res, next) {
   } catch (err) { next(err); }
 }
 
-module.exports = { verificarElector };
+export default { verificarElector };
